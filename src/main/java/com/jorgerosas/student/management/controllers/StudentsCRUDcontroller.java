@@ -22,7 +22,7 @@ public class StudentsCRUDcontroller {
     public List<Student> getAllStudents(){return students;}
 
     @GetMapping("/{email}")
-    public Student getStudentbyEmail(@PathVariable String email){
+    public Student getStudentByEmail(@PathVariable String email){
         for(Student s : students){
             if(s.getEmail().equals(email)) return s;
         }
