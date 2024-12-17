@@ -1,6 +1,8 @@
 package com.jorgerosas.student.management.controllers;
 
 import com.jorgerosas.student.management.domain.Student;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,14 +21,14 @@ public class StudentsCRUDcontroller {
     ));
 
     @GetMapping
-    public List<Student> getAllStudents(){return students;}
+    public ResponseEntity<List<Student>> getAllStudents(){return ResponseEntity.ok(students);}
 
     @GetMapping("/{email}")
-    public Student getStudentByEmail(@PathVariable String email){
+    public ResponseEntity<?> getStudentByEmail(@PathVariable String email){
         for(Student s : students){
-            if(s.getEmail().equals(email)) return s;
+            if(s.getEmail().equals(email)) return ResponseEntity.ok(s);
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found for e-mail: " + email);
     }
 
     @PostMapping
